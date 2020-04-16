@@ -12,14 +12,15 @@
         <v-progress-linear :value="mons.length * 10"></v-progress-linear>
       </v-col>
     </div>
-   
-    <div class="card">
+    <button class="btn" @click="startGame">start</button>
+    <div class="card" v-show="!show" v-if="show ? show : !show">
       <span @click="selectedComponent = 'Attack'"></span>
       <span @click="selectedComponent = 'SpetialAtt'"></span>
       <span @click="selectedComponent = 'Heal'"></span>
       {{ selectedComponent }}
       <component :is="selectedComponent"></component>
       <Results :monArr="mons" :youArr="you"></Results>
+      <button class="btn" @click="startGame">Give up</button>
       <Attack
         :monArr="mons"
         :youArr="you"
@@ -61,15 +62,19 @@ export default {
       you: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       mons: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       selectedComponent: "",
-    
+      show: true,
     };
   },
-
+  methods: {
+    startGame() {
+      this.show = !this.show;
+      console.log(this.show);
+    },
+  },
 };
 </script>
 
 <style>
-
 #wrapper {
   width: 800px;
   height: 400px;
